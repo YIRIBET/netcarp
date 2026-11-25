@@ -4,13 +4,11 @@ import { getAsset, projects } from "./data/projects.js";
 const heroSlides = [
   {
     image: getAsset("arena.jpeg"),
-    eyebrow: "Acabados / Arquitectura de gran escala",
     title: "Construimos espacios que sostienen el México de hoy.",
     text: "Diseño, construcción y acabados de alto nivel desde 2002."
   },
   {
     image: getAsset("parque-Cuervos.jpeg"),
-    eyebrow: "Infraestructura / Energía",
     title: "Infraestructura con precisión técnica y visión nacional.",
     text: "Planta, obra civil y sistemas especializados para proyectos de alto impacto."
   }
@@ -64,7 +62,6 @@ function Hero() {
       <div className="hero-media" style={{ backgroundImage: `url("${slide.image}")` }} />
       <div className="hero-overlay" />
       <div className="hero-content">
-        <p className="hero-eyebrow"><span /><b>{slide.eyebrow}</b></p>
         <h1>{slide.title}</h1>
         <p>{slide.text}</p>
         <a className="primary-button" href="#proyectos">Ver portafolio <span>↗</span></a>
@@ -84,7 +81,6 @@ function About() {
       <section className="intro section" id="nosotros">
         <div className="intro-grid">
           <div className="intro-heading">
-            <p className="kicker">Trayectoria mexicana</p>
             <h2>Más de 20 años construyendo con precisión.</h2>
           </div>
           <div className="intro-copy">
@@ -114,11 +110,11 @@ function About() {
 function Services() {
   return (
     <section className="services section" id="servicios">
-      <div className="services-head"><p className="kicker">Capacidad integral</p><h2>Del criterio de diseño<br />a la ejecución en obra.</h2></div>
+      <div className="services-head"><h2>Del criterio de diseño<br />a la ejecución en obra.</h2></div>
       <div className="services-grid">
         {services.map(([ title, description]) => (
           <article key={title}>
-            <h3>{title}</h3><p>{description}</p><b>↗</b>
+            <h3>{title}</h3><p>{description}</p>
           </article>
         ))}
       </div>
@@ -214,7 +210,7 @@ function Projects() {
   return (
     <section className="projects section" id="proyectos">
       <div className="projects-head">
-        <div><p className="kicker">Experiencia ejecutada</p><h2>Obra y diseño<br />en México.</h2></div>
+        <div><h2>Obra y diseño<br />en México.</h2></div>
       </div>
       <div className="filter-level-one" role="group" aria-label="División principal">
         {["Todos", "Acabados", "Construcción"].map(value => (
@@ -228,7 +224,7 @@ function Projects() {
           ))}
         </div>
       )}
-      <div className="project-grid">
+      <div className="project-grid mb-8">
         {filteredProjects.map((project, index) => (
           <article
             className="project-card"

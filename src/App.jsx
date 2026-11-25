@@ -3,7 +3,7 @@ import { getAsset, projects } from "./data/projects.js";
 
 const heroSlides = [
   {
-    image: getAsset("arena.jpeg"),
+    image: getAsset("arena.jfif"),
     title: "Construimos espacios que sostienen el México de hoy.",
     text: "Diseño, construcción y acabados de alto nivel desde 2002."
   },
@@ -95,7 +95,7 @@ function About() {
         </div>
         <div className="people-grid">
           <figure><img src={getAsset("equipoNetcarp.jfif")} alt="Equipo NETCARP" loading="lazy" /><figcaption>Operación real en campo</figcaption></figure>
-          <figure><img src={getAsset("EquipoSeguridad.jpeg")} alt="Equipo de seguridad NETCARP" loading="lazy" /><figcaption>Seguridad y cumplimiento</figcaption></figure>
+          <figure><img src={getAsset("EquipoSeguridad.jpeg")} alt="Equipo de seguridad NETCARP" loading="lazy" /><figcaption> Equipo de seguridad</figcaption></figure>
         </div>
       </section>
       <section className="principles">

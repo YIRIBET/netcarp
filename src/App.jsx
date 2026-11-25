@@ -384,6 +384,109 @@ function Footer() {
   );
 }
 
+function FloatingContact() {
+  const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [sent, setSent] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("compras.netcarp@gmail.com");
+    } catch {
+      const input = document.createElement("textarea");
+      input.value = "compras.netcarp@gmail.com";
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      input.remove();
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1800);
+  };
+
+  const submitQuickContact = event => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const subject = encodeURIComponent("Solicitud de cotización — NETCARP");
+    const body = encodeURIComponent([
+      `Nombre: ${data.get("name")}`,
+      `Empresa: ${data.get("company") || "No indicada"}`,
+      `Teléfono: ${data.get("phone")}`,
+      `Correo: ${data.get("email")}`,
+      `Tipo de proyecto: ${data.get("type")}`,
+      "",
+      "Descripción:",
+      data.get("description")
+    ].join("\n"));
+    setSent(true);
+    event.currentTarget.reset();
+    window.location.href = `mailto:compras.netcarp@gmail.com?subject=${subject}&body=${body}`;
+  };
+
+  return (
+    <div className="floating-contact">
+      {open && (
+        <aside className="quick-contact-panel" aria-label="Contacto directo NETCARP">
+          <div className="quick-contact-header">
+            <div>
+              <span>Contacto directo</span>
+              <strong>NETCARP</strong>
+            </div>
+            <button type="button" onClick={() => setOpen(false)} aria-label="Cerrar contacto">×</button>
+          </div>
+          <form className="quick-contact-form" onSubmit={submitQuickContact}>
+            <label>
+              Nombre
+              <input name="name" required />
+            </label>
+            <label>
+              Empresa
+              <input name="company" />
+            </label>
+            <label>
+              Teléfono
+              <input name="phone" type="tel" required />
+            </label>
+            <label>
+              Correo
+              <input name="email" type="email" required />
+            </label>
+            <label>
+              Tipo de proyecto
+              <select name="type" required>
+                <option value="">Seleccionar</option>
+                <option>Acabados</option>
+                <option>Construcción</option>
+                <option>Mantenimiento</option>
+              </select>
+            </label>
+            <label>
+              Descripción
+              <textarea name="description" rows="3" required />
+            </label>
+            <button className="quick-contact-submit" type="submit">Enviar mensaje <span>↗</span></button>
+            {sent && <p className="quick-contact-confirmation" role="status">Solicitud preparada para enviar.</p>}
+          </form>
+          <div className="quick-contact-footer">
+            <a href="mailto:compras.netcarp@gmail.com">compras.netcarp@gmail.com</a>
+            <button type="button" onClick={copyEmail}>{copied ? "¡Copiado!" : "Copiar"}</button>
+          </div>
+        </aside>
+      )}
+      <button
+        className={`floating-contact-button ${open ? "open" : ""}`}
+        type="button"
+        onClick={() => setOpen(value => !value)}
+        aria-expanded={open}
+        aria-label={open ? "Cerrar contacto por correo" : "Enviar correo"}
+      >
+        <span className="mail-icon" aria-hidden="true">✉</span>
+        <span className="floating-contact-label">Enviar correo</span>
+      </button>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <>
@@ -397,6 +500,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <FloatingContact />
     </>
   );
 }

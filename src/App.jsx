@@ -21,10 +21,9 @@ const subcategories = {
 
 const services = [
   ["Acabados arquitectónicos", "Interiores y exteriores con control integral de detalle, materiales y acabados."],
-  ["Edificación y obra civil", "Construcción estructural y ejecución de proyectos a escala."],
+  ["Diseño, edificación y obra civil", "Planeación arquitectónica, construcción estructural y ejecución integral de proyectos."],
   ["Infraestructura y vialidades", "Obras municipales, pavimentación, drenaje y redes."],
-  ["Diseño arquitectónico", "Planeación, desarrollo técnico y coordinación especializada."],
-  ["Mantenimiento industrial", "Cubiertas, HVAC, drenaje y sistemas eléctricos."]
+  ["Mantenimiento industrial", "Mantenimiento de cubiertas, HVAC, drenaje y sistemas eléctricos."]
 ];
 
 function Navbar() {
@@ -217,14 +216,12 @@ function Projects() {
           <button key={value} className={division === value ? "active" : ""} onClick={() => selectDivision(value)}>{value}</button>
         ))}
       </div>
-      {division !== "Todos" && (
-        <div className="filter-level-two" aria-label="Subcategorías">
-          {subcategories[division].map(value => (
-            <button key={value} className={subcategory === value ? "active" : ""} onClick={() => setSubcategory(value)}>{value}</button>
-          ))}
-        </div>
-      )}
-      <div className="project-grid mb-8">
+      <div className="filter-level-two" aria-label="Subcategorías">
+        {division !== "Todos" && subcategories[division].map(value => (
+          <button key={value} className={subcategory === value ? "active" : ""} onClick={() => setSubcategory(value)}>{value}</button>
+        ))}
+      </div>
+      <div className="project-grid" key={`${division}-${subcategory}`}>
         {filteredProjects.map((project, index) => (
           <article
             className="project-card"

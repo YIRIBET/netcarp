@@ -88,6 +88,42 @@ img { display:block; width:100%; }
 .project-meta { display:grid; grid-template-columns:1fr auto; gap:10px; padding-top:16px; border-top:1px solid var(--line); margin-top:8px; }
 .project-meta h3 { margin:0; font-size:17px; }
 .project-meta span { color:var(--concrete); font-family:"IBM Plex Mono",monospace; font-size:9px; text-transform:uppercase; }
+.relations { background:var(--white); }
+.relations-carousel { display:grid; grid-template-columns:300px 1fr; align-items:center; gap:30px; }
+.relations-title { margin:0; max-width:300px; font-size:clamp(48px,5vw,72px); line-height:.92; letter-spacing:-.065em; }
+.relations-grid { overflow:hidden; }
+.relations-track { display:flex; width:max-content; animation:relationsMove 18s linear infinite; }
+.relations-track:hover { animation-play-state:paused; }
+@keyframes relationsMove {
+  from { transform:translateX(0); }
+  to { transform:translateX(-50%); }
+}
+.relations-grid::-webkit-scrollbar { display:none; }
+.relation-mark { flex:0 0 150px; min-width:150px; min-height:150px; display:flex; align-items:center; justify-content:center; padding:24px 16px; text-align:center; filter:grayscale(100%); opacity:.75; transition:filter .3s ease,opacity .3s ease,background-color .3s ease; }
+.relation-mark:hover { filter:grayscale(0); opacity:1; background:var(--smoke); }
+.relation-wordmark { display:flex; flex-direction:column; align-items:center; justify-content:center; max-width:150px; color:#383935; }
+.relation-logo { max-width:150px; max-height:90px; width:auto; height:auto; object-fit:contain; transition:transform .3s ease; }
+.relation-mark:hover .relation-logo { transform:scale(1.03); }
+.relation-wordmark strong { font-size:18px; line-height:1; letter-spacing:-.04em; }
+.relation-wordmark span { margin-top:7px; font-family:"IBM Plex Mono",monospace; font-size:7px; line-height:1.35; text-transform:uppercase; letter-spacing:.04em; }
+.relation-arena strong { font-size:21px; letter-spacing:.08em; }
+.relation-sheraton strong { font-family:"Times New Roman",serif; font-size:20px; }
+.relation-unam strong { width:58px; height:58px; display:flex; align-items:center; justify-content:center; border:2px solid currentColor; border-radius:50%; font-family:"Times New Roman",serif; font-size:18px; }
+.relation-anahuac strong { font-size:16px; letter-spacing:.12em; }
+.relation-alsea strong { font-family:"Space Grotesk",sans-serif; font-size:25px; text-transform:lowercase; }
+.relation-tec strong { font-size:13px; letter-spacing:.02em; }
+.relation-soumaya strong { font-family:"Georgia",serif; font-size:15px; text-transform:none; }
+.relation-cirsa strong { font-size:20px; letter-spacing:.05em; }
+.relation-prodiel strong { font-size:17px; letter-spacing:.12em; }
+.relation-fiesta strong { font-family:"Georgia",serif; font-size:15px; font-weight:400; }
+.relation-egade strong { font-size:20px; letter-spacing:.08em; }
+.relation-tecsalud strong { font-size:17px; }
+.relation-muac strong { font-size:22px; letter-spacing:.1em; }
+.relation-casino strong { font-size:13px; letter-spacing:.08em; }
+.relation-baywa strong { font-size:19px; }
+.relation-sorteo strong { font-size:12px; letter-spacing:.08em; }
+.relation-siesa strong { font-size:21px; letter-spacing:.08em; }
+.relation-fibra strong { font-size:16px; letter-spacing:.04em; }
 .contact { background:var(--charcoal); color:white; }
 .contact-grid { display:grid; grid-template-columns:.85fr 1.15fr; gap:8vw; }
 .contact-copy .kicker { color:#9B9D96; }
@@ -165,6 +201,9 @@ footer p,.socials a,.back-top { font-family:"IBM Plex Mono",monospace; font-size
   .services-grid { grid-template-columns:1fr 1fr; }
   .projects-head { align-items:end; }
   .project-grid { grid-template-columns:1fr; }
+  .relations-carousel { grid-template-columns:1fr; gap:24px; }
+  .relations-title { max-width:none; font-size:56px; }
+  .relation-mark { flex-basis:130px; min-width:130px; min-height:130px; padding:16px 8px; }
   .filter-level-two { height:96px; align-content:center; }
   .project-image { height:300px; }
   .contact-details { margin-top:40px; }

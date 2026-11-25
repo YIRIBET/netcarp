@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getAsset, projects } from "./data/projects.js";
 
 const heroSlides = [
@@ -267,6 +267,53 @@ function Projects() {
   );
 }
 
+const commercialRelations = [
+  { name: "ARENA Ciudad de México", style: "arena", image: "marcas/arena-cdmx.png" },
+  { name: "SHERATON María Isabel", style: "sheraton", image: "marcas/sheraton.png" },
+  { name: "UNAM", sub: "Universidad Nacional Autónoma de México", style: "unam", image: "marcas/unam.png" },
+  { name: "Universidad Anáhuac", style: "anahuac", image: "marcas/Anahuac.png" },
+  { name: "Alsea", style: "alsea", image: "marcas/alsea.png" },
+  { name: "Tecnológico de Monterrey", style: "tec", image: "marcas/TEC-Monterrey.png" },
+  { name: "Museo Soumaya", style: "soumaya", image: "marcas/Museo-Soumaya.png" },
+  { name: "CIRSA México", style: "cirsa", image: "marcas/cirsa.png" },
+  { name: "Prodiel", style: "prodiel", image: "marcas/prodiel.png" },
+  { name: "Fiesta Americana Hotels & Resorts", style: "fiesta", image: "marcas/fiestaAmericana-logo.png" },
+  { name: "EGADE Business School", style: "egade", image: "marcas/egade-logo.png" },
+  { name: "TecSalud — Hospital San José", style: "tecsalud", image: "marcas/Tec-Salud.png" },
+  { name: "MUAC", sub: "Museo Universitario Arte Contemporáneo", style: "muac", image: "marcas/muaqc.png" },
+  { name: "CASINO LIFE", sub: "", style: "casino", image: "marcas/CasinoLife.png" },
+  { name: "BayWa r.e.", sub: "", style: "baywa", image: "marcas/BayWa.png" },
+  { name: "SORTEO TEC", sub: "", style: "sorteo", image: "marcas/sorteoTec.png" },
+  { name: "SIESA", sub: "", style: "siesa", image: "marcas/osiesa .png" },
+  { name: "FIBRA HOTEL", sub: "MX", style: "fibra", image: "marcas/fibraHotel.png" }
+];
+
+function CommercialRelations() {
+  return (
+    <section className="relations section" aria-labelledby="relations-title">
+      <div className="relations-carousel">
+        <h2 id="relations-title" className="relations-title">Relaciones comerciales.</h2>
+        <div className="relations-grid" aria-label="Empresas e instituciones relacionadas">
+          <div className="relations-track">
+            {[...commercialRelations, ...commercialRelations].map(({ name, sub, style, image }, index) => (
+              <div className="relation-mark" key={`${name}-${index}`} aria-hidden={index >= commercialRelations.length}>
+                {image ? (
+                  <img className="relation-logo" src={getAsset(image)} alt={index < commercialRelations.length ? name : ""} loading="lazy" />
+                ) : (
+                  <div className={`relation-wordmark relation-${style}`} aria-label={name}>
+                    <strong>{name}</strong>
+                    {sub && <span>{sub}</span>}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   const submitQuote = event => {
     event.preventDefault();
@@ -346,6 +393,7 @@ export default function App() {
         <About />
         <Services />
         <Projects />
+        <CommercialRelations />
         <Contact />
       </main>
       <Footer />

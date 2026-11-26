@@ -180,11 +180,169 @@ function ProjectDrawer({ project, onClose, onExpand }) {
   );
 }
 
+const coverageStates = {
+  "Ciudad de México": [
+    { title: "Oficinas centrales y planta de 600 m²", detail: "Iztapalapa" },
+    { title: "Arena Ciudad de México", detail: "Acabados · Comercial", project: "Arena Ciudad de México" },
+    { title: "3M Santa Fe", detail: "Acabados · Corporativo", project: "3M Santa Fe" },
+    { title: "EGADE Business School — Tec de Monterrey Campus Santa Fe", detail: "Acabados · Educación", project: "EGADE Business School" },
+    { title: "Museo Soumaya Plaza Loreto", detail: "Acabados · Museografía", project: "Museo Soumaya Plaza Loreto" },
+    { title: "Museo de la Ciudad de México", detail: "Acabados · Museografía", project: "Museo de la Ciudad de México" },
+    { title: "Obras UNAM / MUAC y edificación residencial", detail: "Colonia Del Valle" }
+  ],
+  "Estado de México": [
+    { title: "FEMSA Pilares — Toluca", detail: "Construcción · Naves industriales / Obra civil", project: "Naves Industriales Toluca" },
+    { title: "Capilla Universidad Anáhuac — Interlomas", detail: "Acabados · Educación", project: "Capilla Universidad Anáhuac Interlomas" },
+    { title: "Infraestructura municipal y cubiertas Arcotecho", detail: "Preparatorias Oficiales 92 y 96 · CBTA 35 · Primaria Jesús Reyes Heroles", project: "Infraestructura Municipal y Educativa" },
+    { title: "Pavimentación de vialidades", detail: "Calle Norte 11 · Calle Norte 20 y otras vías", project: "Rehabilitación de Vialidades" }
+  ],
+  "Nuevo León": [
+    { title: "Fiesta Americana Monterrey — Live Aqua", detail: "Acabados · Hotelería", project: "Fiesta Americana Monterrey · Live Aqua" },
+    { title: "Hospital San José Monterrey — TecSalud", detail: "Acabados · Salud", project: "Hospital San José Monterrey" },
+    { title: "Casa Sorteo TEC Monterrey 179", detail: "Acabados · Residencial", project: "Casa Sorteo TEC 179" }
+  ],
+  "Jalisco": [
+    { title: "Hotel Marriott AC Guadalajara", detail: "Acabados · Hotelería", project: "Hotel Marriott AC Guadalajara" },
+    { title: "Casa Sorteo TEC Guadalajara 181", detail: "Acabados · Residencial", project: "Casa Sorteo TEC 181" }
+  ],
+  "San Luis Potosí": [
+    { title: "Fiesta Americana San Luis Potosí", detail: "Acabados · Hotelería", project: "Fiesta Americana San Luis Potosí" }
+  ],
+  "Aguascalientes": [
+    { title: "Parque Fotovoltaico Los Cuervos", detail: "Construcción · Energía e infraestructura", project: "Parque Fotovoltaico Los Cuervos" },
+    { title: "Subestación de potencia y subestación elevadora", detail: "Infraestructura eléctrica", project: "Parque Fotovoltaico Los Cuervos" }
+  ]
+};
+
+const mexicoStates = [
+  { id: "Baja California", name: "Baja California", points: "38,48 118,34 125,85 93,104 51,91" },
+  { id: "Baja California Sur", name: "Baja California Sur", points: "112,145 142,130 154,190 137,246 116,226 105,180" },
+  { id: "Sonora", name: "Sonora", points: "120,82 200,74 219,132 184,176 142,130 125,85" },
+  { id: "Chihuahua", name: "Chihuahua", points: "200,74 294,91 286,170 219,132" },
+  { id: "Coahuila", name: "Coahuila", points: "294,91 370,112 366,176 286,170" },
+  { id: "Sinaloa", name: "Sinaloa", points: "184,176 219,132 286,170 257,218 204,210" },
+  { id: "Durango", name: "Durango", points: "219,132 286,170 257,218 204,210" },
+  { id: "Nuevo León", name: "Nuevo León", points: "366,176 408,178 416,218 366,226 338,198" },
+  { id: "Tamaulipas", name: "Tamaulipas", points: "408,178 452,184 464,244 416,218" },
+  { id: "Zacatecas", name: "Zacatecas", points: "257,218 286,170 338,198 332,252 278,254" },
+  { id: "Aguascalientes", name: "Aguascalientes", points: "278,254 332,252 326,278 286,282" },
+  { id: "Nayarit", name: "Nayarit", points: "204,210 257,218 278,254 248,286 208,272" },
+  { id: "San Luis Potosí", name: "San Luis Potosí", points: "332,252 366,226 416,218 398,278 326,278" },
+  { id: "Jalisco", name: "Jalisco", points: "248,286 278,254 326,278 316,332 264,326" },
+  { id: "Guanajuato", name: "Guanajuato", points: "326,278 398,278 380,322 316,332" },
+  { id: "Querétaro", name: "Querétaro", points: "398,278 416,218 438,270 420,310 380,322" },
+  { id: "Hidalgo", name: "Hidalgo", points: "420,310 438,270 464,244 476,302 432,326" },
+  { id: "Estado de México", name: "Estado de México", points: "380,322 420,310 432,326 408,348 372,342" },
+  { id: "Ciudad de México", name: "Ciudad de México", points: "408,348 432,326 444,342 426,356" },
+  { id: "Tlaxcala", name: "Tlaxcala", points: "432,326 476,302 488,326 444,342" },
+  { id: "Puebla", name: "Puebla", points: "444,342 488,326 518,348 468,378 426,356" },
+  { id: "Morelos", name: "Morelos", points: "408,348 426,356 468,378 438,390 394,374" },
+  { id: "Veracruz", name: "Veracruz", points: "476,302 464,244 510,266 518,348 488,326" },
+  { id: "Colima", name: "Colima", points: "264,326 316,332 300,352 272,350" },
+  { id: "Michoacán", name: "Michoacán", points: "300,352 316,332 380,322 372,342 394,374 350,394 300,378" },
+  { id: "Guerrero", name: "Guerrero", points: "394,374 438,390 468,378 474,420 400,420 350,394" },
+  { id: "Oaxaca", name: "Oaxaca", points: "468,378 518,348 548,382 528,420 474,420" },
+  { id: "Chiapas", name: "Chiapas", points: "528,420 548,382 578,398 566,452 508,452" },
+  { id: "Tabasco", name: "Tabasco", points: "518,348 548,382 528,420 508,452 488,408" },
+  { id: "Campeche", name: "Campeche", points: "548,382 578,398 566,452 608,420 602,376" },
+  { id: "Yucatán", name: "Yucatán", points: "602,376 608,420 628,380 620,314 576,308" },
+  { id: "Quintana Roo", name: "Quintana Roo", points: "628,380 608,420 602,376 620,314" }
+];
+
+function NationalCoverageMap({ selectedState, onSelectState, onOpenProject }) {
+  const activeStateNames = Object.keys(coverageStates);
+  const activeState = selectedState ? coverageStates[selectedState] : null;
+
+  return (
+    <div className="coverage-layout" key="coverage-map">
+      <div className="coverage-map-wrap">
+        <svg className="mexico-map" viewBox="0 0 660 500" role="img" aria-label="Mapa de cobertura de NETCARP en México">
+          {mexicoStates.map(state => {
+            const active = activeStateNames.includes(state.name);
+            const selected = selectedState === state.name;
+            return (
+              <polygon
+                key={state.id}
+                points={state.points}
+                className={`mexico-state ${active ? "active" : ""} ${selected ? "selected" : ""}`}
+                onMouseEnter={active ? () => onSelectState(state.name) : undefined}
+                onClick={active ? () => onSelectState(state.name) : undefined}
+                role={active ? "button" : undefined}
+                tabIndex={active ? 0 : undefined}
+                onKeyDown={active ? event => {
+                  if (event.key === "Enter" || event.key === " ") onSelectState(state.name);
+                } : undefined}
+              >
+                <title>{state.name}{active ? " — Presencia NETCARP" : ""}</title>
+              </polygon>
+            );
+          })}
+          {activeStateNames.map(name => {
+            const labelPositions = {
+              "Ciudad de México": [418, 350],
+              "Estado de México": [392, 332],
+              "Nuevo León": [382, 204],
+              "Jalisco": [296, 300],
+              "San Luis Potosí": [366, 260],
+              "Aguascalientes": [304, 268]
+            };
+            const [x, y] = labelPositions[name];
+            return (
+              <g key={name} className="state-marker" transform={`translate(${x} ${y})`} onClick={() => onSelectState(name)}>
+                <circle r="5" />
+                <circle r="10" className="marker-ring" />
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+      <aside className="coverage-panel" aria-live="polite">
+        {!activeState ? (
+          <>
+            <span className="coverage-kicker">Cobertura nacional</span>
+            <h3>Presencia activa<br />desde 2002.</h3>
+            <p>NETCARP desarrolla proyectos de diseño, acabados, construcción e infraestructura en distintas entidades de la República Mexicana.</p>
+            <div className="active-states">
+              {activeStateNames.map(name => (
+                <button type="button" key={name} onClick={() => onSelectState(name)}>
+                  <span>{String(activeStateNames.indexOf(name) + 1).padStart(2, "0")}</span>{name}
+                </button>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <span className="coverage-kicker">Cobertura / Estado activo</span>
+            <h3>{selectedState}</h3>
+            <p>{activeState.length} líneas de obra registradas.</p>
+            <div className="coverage-project-list">
+              {activeState.map(item => (
+                <button
+                  type="button"
+                  key={`${item.title}-${item.detail}`}
+                  className={item.project ? "is-project" : ""}
+                  onClick={() => item.project && onOpenProject(item.project)}
+                  disabled={!item.project}
+                >
+                  <span>{item.detail}</span>
+                  <strong>{item.title}</strong>
+                  {item.project && <b aria-hidden="true">↗</b>}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+      </aside>
+    </div>
+  );
+}
+
 function Projects() {
   const [division, setDivision] = useState("Todos");
   const [subcategory, setSubcategory] = useState("Todos");
   const [selectedProject, setSelectedProject] = useState(null);
   const [expandedImage, setExpandedImage] = useState(null);
+  const [selectedState, setSelectedState] = useState(null);
 
   useEffect(() => {
     if (!expandedImage) return undefined;
@@ -206,44 +364,67 @@ function Projects() {
     setSubcategory("Todos");
   };
 
+  const isMap = division === "Cobertura Nacional";
+
   return (
     <section className="projects section" id="proyectos">
       <div className="projects-head">
         <div><h2>Obra y diseño<br />en México.</h2></div>
       </div>
       <div className="filter-level-one" role="group" aria-label="División principal">
-        {["Todos", "Acabados", "Construcción"].map(value => (
-          <button key={value} className={division === value ? "active" : ""} onClick={() => selectDivision(value)}>{value}</button>
+        {["Todos", "Acabados", "Construcción", "Cobertura Nacional"].map(value => (
+          <button
+            key={value}
+            className={(value === "Cobertura Nacional" ? division === "Cobertura Nacional" : division === value) ? "active" : ""}
+            onClick={() => selectDivision(value === "Cobertura Nacional" ? "Cobertura Nacional" : value)}
+          >
+            {value}
+          </button>
         ))}
       </div>
       <div className="filter-level-two" aria-label="Subcategorías">
-        {division !== "Todos" && subcategories[division].map(value => (
+        {!isMap && division !== "Todos" && subcategories[division]?.map(value => (
           <button key={value} className={subcategory === value ? "active" : ""} onClick={() => setSubcategory(value)}>{value}</button>
         ))}
       </div>
-      <div className="project-grid" key={`${division}-${subcategory}`}>
-        {filteredProjects.map((project, index) => (
-          <article
-            className="project-card"
-            key={project.title}
-            tabIndex="0"
-            role="button"
-            aria-label={`Abrir caso de estudio ${project.title}`}
-            onClick={() => setSelectedProject(project)}
-            onKeyDown={event => {
-              if (event.key === "Enter" || event.key === " ") setSelectedProject(project);
-            }}
-          >
-            <div className="project-image">
-              <img src={project.main} alt={project.title} loading={index < 3 ? "eager" : "lazy"} />
-            </div>
-            <div className="project-meta">
-              <h3>{project.title}</h3>
-              <span>{project.location}</span>
-            </div>
-          </article>
-        ))}
-      </div>
+      {isMap ? (
+        <NationalCoverageMap
+          selectedState={selectedState}
+          onSelectState={setSelectedState}
+          onOpenProject={projectTitle => {
+            const project = projects.find(item =>
+              item.title === projectTitle ||
+              projectTitle.includes(item.title) ||
+              item.title.includes(projectTitle)
+            );
+            if (project) setSelectedProject(project);
+          }}
+        />
+      ) : (
+        <div className="project-grid" key={`${division}-${subcategory}`}>
+          {filteredProjects.map((project, index) => (
+            <article
+              className="project-card"
+              key={project.title}
+              tabIndex="0"
+              role="button"
+              aria-label={`Abrir caso de estudio ${project.title}`}
+              onClick={() => setSelectedProject(project)}
+              onKeyDown={event => {
+                if (event.key === "Enter" || event.key === " ") setSelectedProject(project);
+              }}
+            >
+              <div className="project-image">
+                <img src={project.main} alt={project.title} loading={index < 3 ? "eager" : "lazy"} />
+              </div>
+              <div className="project-meta">
+                <h3>{project.title}</h3>
+                <span>{project.location}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
       <ProjectDrawer
         project={selectedProject}
         onClose={() => setSelectedProject(null)}

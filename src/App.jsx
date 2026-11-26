@@ -299,7 +299,7 @@ function NationalCoverageMap({ selectedState, onSelectState, onOpenProject }) {
       <aside className="coverage-panel" aria-live="polite">
         {!activeState ? (
           <>
-            <span className="coverage-kicker">Cobertura nacional</span>
+            
             <h3>Presencia activa<br />desde 2002.</h3>
             <p>NETCARP desarrolla proyectos de diseño, acabados, construcción e infraestructura en distintas entidades de la República Mexicana.</p>
             <div className="active-states">

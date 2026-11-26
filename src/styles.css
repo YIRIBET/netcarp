@@ -4,6 +4,7 @@
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body { margin:0; font-family:"Inter",Arial,sans-serif; color:var(--ink); background:var(--white); }
+p { text-align:justify; text-justify:inter-word; }
 a { color:inherit; text-decoration:none; }
 button,input,select,textarea { font:inherit; }
 img { display:block; width:100%; }
@@ -128,7 +129,7 @@ img { display:block; width:100%; }
 .relation-mark { flex:0 0 150px; min-width:150px; min-height:150px; display:flex; align-items:center; justify-content:center; padding:24px 16px; text-align:center; filter:grayscale(100%); opacity:.75; transition:filter .3s ease,opacity .3s ease,background-color .3s ease; }
 .relation-mark:hover { filter:grayscale(0); opacity:1; background:var(--smoke); }
 .relation-wordmark { display:flex; flex-direction:column; align-items:center; justify-content:center; max-width:150px; color:#383935; }
-.relation-logo { max-width:150px; max-height:90px; width:auto; height:auto; object-fit:contain; transition:transform .3s ease; }
+.relation-logo { max-width:120px; max-height:72px; width:auto; height:auto; object-fit:contain; transition:transform .3s ease; }
 .relation-mark:hover .relation-logo { transform:scale(1.03); }
 .relation-wordmark strong { font-size:18px; line-height:1; letter-spacing:-.04em; }
 .relation-wordmark span { margin-top:7px; font-family:"IBM Plex Mono",monospace; font-size:7px; line-height:1.35; text-transform:uppercase; letter-spacing:.04em; }
